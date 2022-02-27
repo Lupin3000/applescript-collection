@@ -6,11 +6,15 @@ Collection for some Applescripts
 
 Icons downloaded from <a target="_blank" href="https://icons8.de">Icons8</a>
 
-## Important
+## Note
 
 **:point_right: Very Important :point_left:**
 
 The author of this repository (_information, scripts, code_) take no responsibility for your use or misuse! Respect the law in your country/location/area! The information included at this repository is for educational purposes only!
+
+## Important
+
+Some of scripts expect binaries (_`ffmpeg`, `ffplay`, `python3`_) are installed!
 
 ### Table of Contents
 
