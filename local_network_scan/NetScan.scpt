@@ -11,7 +11,7 @@ end quit
 -- select service
 on SelectDevice()
 	set dialog_title to "Video URL"
-	
+
 	tell application "System Events"
 		tell current location of network preferences
 			set all_networkservice to get name of every service whose active is true
