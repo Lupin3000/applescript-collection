@@ -1,66 +1,72 @@
 #!/usr/bin/osascript
 
-global theURL
-global theOutputFolder
-global theOutputFileName
+global video_url
+global target_posix_path
+global target_file
 
-on SetURL()
-  set theTitle to "Video URL"
-
-  try
-    set theURLDialog to display dialog "What's the file URL?" default answer "" with title theTitle buttons {"Continue"}
-    set theURL to text returned of theURLDialog
-  on error
-    quit
-  end try
-
-  if theURL as string is equal to "" then
-    quit
-  end if
-end SetURL
-
-on SetOutputFolder()
-  try
-    set theOutputFolder to choose folder with prompt "In what folder you will save the file?"
-  on error
-    quit
-  end try
-end SetOutputFolder
-
-on SetOutputFileName()
-  set theTitle to "File Name"
-
-  try
-    set theOutputFileNameDialog to display dialog "What's your target file name?" default answer "" with title theTitle buttons {"Continue"}
-    set theOutputFileName to text returned of theOutputFileNameDialog
-  on error
-    quit
-  end try
-
-  if theOutputFileName as string is equal to "" then
-    quit
-  end if
-end SetOutputFileName
-
-on RunTerminal()
-  set theTargetPath to POSIX path of theOutputFolder & theOutputFileName
-  set theCommand to "ffmpeg -i " & theURL & " -c copy -bsf:a aac_adtstoasc " & theTargetPath
-
-  tell application "Terminal"
-    activate
-    do script with command theCommand in window 1
-  end tell
-end RunTerminal
-
+-- quit on error
 on quit
-  display dialog "Thanks for trying this!" buttons {"Continue"}
-  continue quit
+	display dialog "Thanks for trying this!" buttons {"Exit"}
+	continue quit
 end quit
 
-on run
-  SetURL()
-  SetOutputFolder()
-  SetOutputFileName()
+-- set video url
+on SetVideoURL()
+	set dialog_title to "Video URL"
 
-  RunTerminal()
+	try
+		set Dialog to display dialog "What's the video URL?" default answer "" with title dialog_title buttons {"Next Step"}
+		set video_url to text returned of Dialog
+	on error
+		quit
+	end try
+
+	if (video_url as string is equal to "") then
+		quit
+	end if
+end SetVideoURL
+
+-- set target directory
+on SetTargetDirectory()
+	try
+		set target_directory to choose folder with prompt "Where should the video be saved?"
+	on error
+		quit
+	end try
+
+	set target_posix_path to POSIX path of target_directory
+end SetTargetDirectory
+
+-- set target file name
+on SetTargetFile()
+	set dialog_title to "Video filename"
+
+	try
+		set Dialog to display dialog "What should be the name for video file?" default answer "" with title dialog_title buttons {"Start Download"}
+		set target_file to text returned of Dialog
+	on error
+		quit
+	end try
+
+	if (target_file as string is equal to "") then
+		quit
+	end if
+end SetTargetFile
+
+-- run command in terminal
+on RunTerminal()
+	set shell_command to "ffmpeg -i \"" & video_url & "\" -c copy -bsf:a aac_adtstoasc " & target_posix_path & target_file
+
+	tell application "Terminal"
+		if not running then activate
+		do script with command shell_command
+	end tell
+end RunTerminal
+
+-- main
+on run
+	SetVideoURL()
+	SetTargetDirectory()
+	SetTargetFile()
+	RunTerminal()
 end run
