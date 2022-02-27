@@ -55,7 +55,7 @@ end SetTargetFile
 
 -- run command in terminal
 on RunTerminal()
-	set shell_command to "ffmpeg -i \"" & video_url & "\" -c copy -bsf:a aac_adtstoasc " & target_posix_path & target_file
+	set shell_command to "ffmpeg -hide_banner -i \"" & video_url & "\" -c copy -bsf:a aac_adtstoasc " & target_posix_path & target_file
 
 	tell application "Terminal"
 		if not running then activate
