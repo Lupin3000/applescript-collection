@@ -4,7 +4,12 @@ Collection for some Applescripts
 
 ## Icons
 
-Icons downloaded from <a target="_blank" href="https://icons8.de">Icons8</a>
+All icons downloaded from [Icons8](https://icons8.de).
+
+- Export the script from Scripteditor as *.app
+- Select the exported *.app
+- Press `⌘` + `i` keys
+- Move PNG into information window (_replace droplet icon_)
 
 ## Note
 
