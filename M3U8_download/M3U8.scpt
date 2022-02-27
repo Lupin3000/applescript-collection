@@ -1,4 +1,3 @@
-
 global video_url
 global target_posix_path
 global target_file
@@ -53,19 +52,19 @@ on SetTargetFile()
 end SetTargetFile
 
 -- run command in terminal
-on RunTerminal()
+on RunInTerminal()
 	set shell_command to "ffmpeg -hide_banner -i \"" & video_url & "\" -c copy -bsf:a aac_adtstoasc " & target_posix_path & target_file
 
 	tell application "Terminal"
 		if not running then activate
 		do script with command shell_command
 	end tell
-end RunTerminal
+end RunInTerminal
 
 -- main
 on run
 	SetVideoURL()
 	SetTargetDirectory()
 	SetTargetFile()
-	RunTerminal()
+	RunInTerminal()
 end run

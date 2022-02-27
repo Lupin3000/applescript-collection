@@ -1,32 +1,37 @@
-#!/usr/bin/osascript
+global sdp_posix_file
 
-global sdp_file
-
+-- quit on error
 on quit
-	display dialog "Thanks for trying this!" buttons {"Continue"}
+	display dialog "Thanks for trying this!" buttons {"Exit"}
 	continue quit
 end quit
 
+-- set sdp file
 on SetSDPFile()
-	set window_title to "ffplay SDP location"
-
 	try
-		set sdp_file to choose file with prompt "Please select a document to process:"
+		set sdp_file to choose file with prompt "What's the SDP file?"
 	on error
 		quit
 	end try
+
+	if (sdp_file as string is equal to "false") then
+		quit
+	end if
+
+	set sdp_posix_file to POSIX path of sdp_file
 end SetSDPFile
 
+-- run command in terminal
 on RunInTerminal()
-	set posix_sdp_file to POSIX path of sdp_file
-	set terminal_command to "ffplay -protocol_whitelist \"file,udp,rtp\" -i" & posix_sdp_file
+	set shell_command to "ffplay -hide_banner -protocol_whitelist \"file,udp,rtp\" -i " & sdp_posix_file
 
 	tell application "Terminal"
-		activate
-		do script with command terminal_command in window 1
+		if not running then activate
+		do script with command shell_command
 	end tell
 end RunInTerminal
 
+-- main
 on run
 	SetSDPFile()
 	RunInTerminal()
