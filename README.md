@@ -11,4 +11,4 @@ The author of this repository (_information, scripts, code_) take no responsibil
 ### Table of Contents
 
 - [Local Network Scan](local_network_scan/)
-- [M3U8 Download](M3U8/)
+- [M3U8 Download](M3U8_download/)
