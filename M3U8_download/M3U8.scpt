@@ -1,4 +1,3 @@
-#!/usr/bin/osascript
 
 global video_url
 global target_posix_path
